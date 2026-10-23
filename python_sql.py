@@ -1,19 +1,23 @@
+
 import os
 import mysql.connector
 
-
-# MySQL connection
 def get_connection():
     connection = mysql.connector.connect(
-        host=os.getenv("DB_HOST"),
-        port=int(os.getenv("DB_PORT", "3306")),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        database=os.getenv("DB_NAME"),
-        ssl_disabled=False
+        host=os.environ["DB_HOST"],
+        port=int(os.environ["DB_PORT"]),
+        user=os.environ["DB_USER"],
+        password=os.environ["DB_PASSWORD"],
+        database=os.environ["DB_NAME"],
+        ssl_disabled=False,
+        connection_timeout=20
     )
-    print("MySQL connected successfully")
+    print("Connected to Aiven MySQL successfully")
     return connection
+
+
+print("DB_HOST set:", bool(os.getenv("DB_HOST")))
+print("DB_PASSWORD set:", bool(os.getenv("DB_PASSWORD")))
 
 
 # Close connection
